@@ -1,3 +1,14 @@
+This project is a part of the react nano degree
+
+- there will be quesions
+- there will be users
+- there will be a ladder board
+
+# The store will have:
+- questions
+- users
+- authedUser
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
