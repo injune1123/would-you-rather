@@ -15,7 +15,7 @@ class App extends Component {
         {
           this.props.loading === true ? null :
           <>
-            <h1>what would you like</h1>
+            <h1>What would you like</h1>
           <Dashboard/>
           </>
         }
