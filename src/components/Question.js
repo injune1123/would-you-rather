@@ -13,7 +13,7 @@ class Question extends Component {
       return <p>This question does not exist</p>
     }
 
-    const {avatar, id, name, text, timestamp} = question
+    const {avatar, id, name, optionOne, optionTwo, timestamp} = question
     return (
       <div className = 'question'>
         {/* <img
@@ -21,7 +21,7 @@ class Question extends Component {
           alt={`Avatar of ${name}`}
           className='avatar'
         /> */}
-        <h3>{` Would you rather ${text}`}</h3>
+        <h3>{` Would you rather ${optionOne.text}, or ${optionTwo.text}?`}</h3>
 
         <div className='question-info'>
           <span>{`-- `+name}</span>
@@ -34,7 +34,6 @@ class Question extends Component {
 
 function mapStateToProps({authedUser, users, questions}, {id}) {
   const question = questions[id]
-
   return {
     authedUser,
     question: question? formatQuestion(question, users[question.author], authedUser) : null

@@ -6,22 +6,30 @@ class Dashboard extends Component {
     console.log(this.props)
     return (
       <div>
-      <h3> Unanswered Questions</h3>
+      <h3> Answered Questions</h3>
       <ul>
-        {this.props.questionIds.map((id)=>(
-          <li key={id}>
-            <Question id={id}/>
-          </li>
+        {this.props.answeredQuestionIds.map((id)=>(
+          <Question key={id} id={id}/>
+        ))}
+      </ul>
+      <h3> unAnswered Questions</h3>
+      <ul>
+        {this.props.unAnsweredQuestionIds.map((id)=>(
+            <Question key={id} id={id}/>
         ))}
       </ul>
       </div>)
   }
 }
 
-function mapStateToProps({ questions }) {
+function mapStateToProps({ questions, authedUser, users }) {
   return {
-    questionIds: Object.keys(questions)
-      .sort((a,b)=> questions[b].timestamp - questions[a].timestamp)
+    answeredQuestionIds: Object.keys(questions)
+    .filter(questionId =>  users[authedUser].questions.includes(questionId))
+    .sort((a,b)=> questions[b].timestamp - questions[a].timestamp),
+    unAnsweredQuestionIds: Object.keys(questions)
+    .filter(questionId =>  !users[authedUser].questions.includes(questionId))
+    .sort((a,b)=> questions[b].timestamp - questions[a].timestamp)
   }
 }
 export default connect(mapStateToProps)(Dashboard)

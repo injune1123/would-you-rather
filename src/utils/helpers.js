@@ -5,7 +5,8 @@ export function formatQuestion (question, author ) {
     name,
     id,
     timestamp,
-    text: `${optionOne.text}, or ${optionTwo.text}?`,
+    optionOne,
+    optionTwo,
     avatar: avatarURL
   }
 }
