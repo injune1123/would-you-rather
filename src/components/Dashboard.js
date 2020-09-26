@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Question from './Question'
+import QuestionOverview from './QuestionOverview'
+
 class Dashboard extends Component {
   render() {
     console.log(this.props)
@@ -9,13 +11,17 @@ class Dashboard extends Component {
       <h3> Answered Questions</h3>
       <ul>
         {this.props.answeredQuestionIds.map((id)=>(
+          <>
           <Question key={id} id={id}/>
+
+          <QuestionOverview key={id} id={id}/>
+          </>
         ))}
       </ul>
       <h3> unAnswered Questions</h3>
       <ul>
         {this.props.unAnsweredQuestionIds.map((id)=>(
-            <Question key={id} id={id}/>
+            <QuestionOverview key={id} id={id}/>
         ))}
       </ul>
       </div>)
