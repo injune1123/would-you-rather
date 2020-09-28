@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {formatDate, formatQuestion} from '../utils/helpers'
 import {RiThumbUpLine} from "react-icons/ri";
 import {RiThumbUpFill} from "react-icons/ri";
-
+import {Link} from 'react-router-dom'
 
 class QuestionOverview extends Component {
   render() {
@@ -15,6 +15,7 @@ class QuestionOverview extends Component {
 
     const {avatar, id, name, optionOne, optionTwo, timestamp} = question
     return (
+      <Link to={`/question/${id}` } >
       <div className = 'question'>
         {/* <img
           src={avatar}
@@ -28,6 +29,7 @@ class QuestionOverview extends Component {
           <div>{`@` + formatDate(timestamp)}</div>
         </div>
       </div>
+      </Link>
     )
   }
 }

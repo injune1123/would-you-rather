@@ -11,8 +11,6 @@ class Dashboard extends Component {
       <ul>
         {this.props.answeredQuestionIds.map((id)=>(
           <>
-          <Question key={id} id={id}/>
-
           <QuestionOverview key={id} id={id}/>
           </>
         ))}
