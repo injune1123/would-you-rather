@@ -1,20 +1,18 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {formatDate, formatQuestion} from '../utils/helpers'
+import { handleAnswerQuestion } from '../actions/questions';
 import {RiThumbUpLine} from "react-icons/ri";
 import {RiThumbUpFill} from "react-icons/ri";
+import './Question.css';
 
 class Question extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {selectedAnswer: ''};
-
-    this.handleOptionChange = this.handleOptionChange.bind(this);
-  }
-
   handleOptionChange(event) {
-    this.setState({selectedAnswer: event.target.value});
-
+    this.props.dispatch(handleAnswerQuestion({
+      authedUser: this.props.authedUser,
+      qid: this.props.id,
+      answer: event.target.value
+    }))
   }
   render() {
     const {question} = this.props
@@ -23,6 +21,7 @@ class Question extends Component {
     }
 
     const {avatar, id, name, optionOne, optionTwo, timestamp} = question
+
     return (
       <div className = 'question'>
         {/* <img
@@ -30,32 +29,37 @@ class Question extends Component {
           alt={`Avatar of ${name}`}
           className='avatar'
         /> */}
-        <span>? Answered : unAnswered</span>
-        <h3>{` Would you rather...`}</h3>
+        <h3>
+        ({(this.props.selectedOptionOne || this.props.selectedOptionTwo) ? 'Answered' : 'UnAnswered'})
+
+          {` Would you rather`}
+          </h3>
 
         <input
+          className={'hidden'}
           type="radio"
-          key={`${id}-${optionOne.text}`}
-          id={`${id}-${optionOne.text}`}
+          key={`${id}-optionOne`}
+          id={`${id}-optionOne`}
           name={`${optionOne.text} or ${optionTwo.text}`}
-          value={optionOne.text}
-          checked={this.state.selectedAnswer===optionOne.text}
-          onChange={this.handleOptionChange}
+          value='optionOne'
+          checked={this.props.selectedOptionOne}
+          onChange={(e) => (this.handleOptionChange(e))}
         />
-        <label htmlFor={`${id}-${optionOne.text}`}>{optionOne.text}</label>
+        <label className={`option ${this.props.selectedOptionOne? 'selected' : 'unSelected'}`} htmlFor={`${id}-optionOne`}>{optionOne.text}</label>
         <br/>
 
         <input
+          className={'hidden'}
           type="radio"
-          key={`${id}-${optionTwo.text}`}
-          id={`${id}-${optionTwo.text}`}
+          key={`${id}-optionTwo`}
+          id={`${id}-optionTwo`}
           name={`${optionOne.text} or ${optionTwo.text}`}
-          value={optionTwo.text}
-          checked={this.state.selectedAnswer===optionTwo.text}
-          onChange={this.handleOptionChange}
+          value={'optionTwo'}
+          checked={this.props.selectedOptionTwo}
+          onChange={(e) => (this.handleOptionChange(e))}
         />
 
-        <label htmlFor={`${id}-${optionTwo.text}`}>{optionTwo.text}</label>
+        <label className={`option ${this.props.selectedOptionTwo? 'selected' : 'unSelected'}`} htmlFor={`${id}-optionTwo`}>{optionTwo.text}</label>
         <br/>
 
         <div className='question-info'>
@@ -69,9 +73,12 @@ class Question extends Component {
 
 function mapStateToProps({authedUser, users, questions}, {id}) {
   const question = questions[id]
+  console.log("!!!!!!!!!!!question", question)
   return {
     authedUser,
-    question: question? formatQuestion(question, users[question.author], authedUser) : null
+    question: question? formatQuestion(question, users[question.author], authedUser) : null,
+    selectedOptionOne: question.optionOne.votes.indexOf(authedUser) > -1,
+    selectedOptionTwo: question.optionTwo.votes.indexOf(authedUser) > -1,
   }
 }
 

@@ -5,7 +5,6 @@ import QuestionOverview from './QuestionOverview'
 
 class Dashboard extends Component {
   render() {
-    console.log(this.props)
     return (
       <div>
       <h3> Answered Questions</h3>
