@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import Question from './Question'
+import NewQuestion from './NewQuestion'
 import QuestionOverview from './QuestionOverview'
 
 class Dashboard extends Component {
   render() {
     return (
       <div>
+        <NewQuestion/>
       <h3> Answered Questions</h3>
       <ul>
         {this.props.answeredQuestionIds.map((id)=>(

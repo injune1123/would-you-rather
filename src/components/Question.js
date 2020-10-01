@@ -72,15 +72,15 @@ class Question extends Component {
 }
 
 function mapStateToProps({authedUser, users, questions}, {id}) {
-  console.log("!!!!!!!!!!!this.props", this.props)
+  
 
-  console.log("!!!!!!!!!!!authedUser", authedUser)
-  console.log("!!!!!!!!!!!users", users)
-  console.log("!!!!!!!!!!!questions", questions)
-  console.log("!!!!!!!!!!!id", id)
+  
+  
+  
+  
 
   const question = questions[id]
-  console.log("!!!!!!!!!!!question", question)
+  
   return {
     authedUser,
     question: question? formatQuestion(question, users[question.author], authedUser) : null,

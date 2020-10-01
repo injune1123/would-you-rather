@@ -1,0 +1,11 @@
+.input-option{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    font-size: 30px
+}
+
+
+.input-option:focus {
+    outline: none;
+}
