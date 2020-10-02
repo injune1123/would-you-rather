@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import SignIn from './SignIn'
 import NewQuestion from './NewQuestion'
 import QuestionOverview from './QuestionOverview'
 
@@ -7,6 +8,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <SignIn/>
         <NewQuestion/>
       <h3> Answered Questions</h3>
       <ul>
