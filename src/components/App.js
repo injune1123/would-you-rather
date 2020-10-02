@@ -5,6 +5,8 @@ import { handleInitialData } from '../actions/shared';
 import Dashboard from './Dashboard'
 import SignIn from './SignIn'
 import Question from './Question'
+import NewQuestion from './NewQuestion'
+import Leaderboard from './Leaderboard'
 import './App.css';
 
 class App extends Component {
@@ -21,6 +23,8 @@ class App extends Component {
           <div>
             <Route path='/' exact component={SignIn}/>
             <Route path='/dashboard' exact component={Dashboard}/>
+            <Route path='/add' exact component={NewQuestion}/>
+            <Route path='/leaderboard' exact component={Leaderboard}/>
             <Route path='/question/:id'
             render={props => <Question {...props.match.params} />}
             />

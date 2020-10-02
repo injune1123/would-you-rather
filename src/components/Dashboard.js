@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import SignIn from './SignIn'
 import NewQuestion from './NewQuestion'
 import QuestionOverview from './QuestionOverview'
+import Leaderboard from './Leaderboard'
 
 class Dashboard extends Component {
 
@@ -28,6 +29,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <Leaderboard/>
         <SignIn/>
         <NewQuestion/>
 

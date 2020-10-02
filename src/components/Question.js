@@ -72,13 +72,7 @@ class Question extends Component {
 }
 
 function mapStateToProps({authedUser, users, questions}, {id}) {
-  
-
-  
-  
-  
-  
-
+ 
   const question = questions[id]
   
   return {
