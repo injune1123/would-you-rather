@@ -29,10 +29,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Leaderboard/>
-        <SignIn/>
-        <NewQuestion/>
-
       <input id='unanswered-question-nav'
         checked={this.state.questions==="unanswered"}
         type="radio"
