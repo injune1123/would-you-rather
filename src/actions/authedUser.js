@@ -1,4 +1,5 @@
 export const SET_AUTHED_USER = 'SET_AUTHED_USER'
+export const CLEAR_AUTHED_USER = 'CLEAR_AUTHED_USER'
 
 export function setAuthedUser (id) {
   return {
@@ -7,9 +8,13 @@ export function setAuthedUser (id) {
   }
 }
 
-
 export function handleSetAuthedUser (id){
   return (dispatch) => {
     dispatch(setAuthedUser(id))
   }
+}
+
+export function signOut (id) {
+  return {
+    type: CLEAR_AUTHED_USER  }
 }

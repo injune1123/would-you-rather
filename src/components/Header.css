@@ -1,6 +1,6 @@
 .header{
   margin: 10px
 }
-.logged-in-user{
+.logged-in-user, .sign-out{
   text-align: right;
 }

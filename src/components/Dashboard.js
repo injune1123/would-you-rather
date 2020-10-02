@@ -19,7 +19,6 @@ class Dashboard extends Component {
   }
 
   renderQuestions(answered) {
-    debugger;
     const questionIds = answered? this.props.answeredQuestionIds : this.props.unAnsweredQuestionIds;
     return questionIds.map((id)=>(
       <QuestionOverview key={id} id={id}/>
@@ -29,19 +28,20 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+      <h1>All Questions</h1>
       <input id='unanswered-question-nav'
         checked={this.state.questions==="unanswered"}
         type="radio"
         value='unanswered'
         onChange={(e) => (this.onChangeQuestionsType(e))}/>
-      <label htmlFor='unanswered-question-nav'> Questions To Be Answered</label>
+      <label htmlFor='unanswered-question-nav'> To Be Answered</label>
 
       <input id='answered-question-nav'
         checked={this.state.questions==="answered"}
         type="radio"
         value='answered'
         onChange={(e) => (this.onChangeQuestionsType(e))}/>
-      <label htmlFor='answered-question-nav'> Answered questions</label>
+      <label htmlFor='answered-question-nav'> Answered</label>
 
 
       {this.renderQuestions(this.state.questions==="answered")}
@@ -53,10 +53,10 @@ class Dashboard extends Component {
 function mapStateToProps({ questions, authedUser, users }) {
   return {
     answeredQuestionIds: Object.keys(questions)
-    .filter(questionId =>  users[authedUser].questions.includes(questionId))
+    .filter(questionId =>  Object.keys(users[authedUser].answers).includes(questionId))
     .sort((a,b)=> questions[b].timestamp - questions[a].timestamp),
     unAnsweredQuestionIds: Object.keys(questions)
-    .filter(questionId =>  !users[authedUser].questions.includes(questionId))
+    .filter(questionId =>  !Object.keys(users[authedUser].answers).includes(questionId))
     .sort((a,b)=> questions[b].timestamp - questions[a].timestamp)
   }
 }

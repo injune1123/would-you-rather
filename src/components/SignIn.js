@@ -25,14 +25,20 @@ class SignIn extends Component {
         <p>Pick a user to start</p>
         <ul>
           {Object.keys(users).map((id)=>
-            <>
+            <Fragment key={`fragment-${users[id].id}`}>
               <input id={users[id].id}
+                key={`input-${users[id].id}`}
                 checked={authedUser ? authedUser === users[id].id : false}
                 type="radio"
                 value={users[id].id}
                 onChange={(e) => (this.onSelectUser(e))}/>
-              <label htmlFor={users[id].id}>{users[id].id}</label>
-            </>
+              <label
+                key={`label-${users[id].id}`}
+                htmlFor={users[id].id}
+              >
+                  {users[id].id}
+              </label>
+            </Fragment>
           )}
         </ul>
       </div>

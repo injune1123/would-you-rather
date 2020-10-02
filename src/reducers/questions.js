@@ -2,20 +2,9 @@ import { ANSWER_QUESTION, CREATE_QUESTION, RECEIVE_QUESTIONS } from '../actions/
 
 export default function questions (state = {}, action) {
   switch(action.type) {
-    //  in users object
-    //  the authed user property
-    // will have the answered question stored in
-    // its answers object
-    // ...,
-    // authedUser: {
-    // ...
-    //   answers: {
-    //  "question": 'optionOne',
-    // },
-    // in the questions object
+    case ANSWER_QUESTION:
     // the option's vote array will also be updated
     // by adding the user id into it
-    case ANSWER_QUESTION:
       const {qid, answer, authedUser}= action
 
       const getVotes = function (answer, getVotesForOption1or2, qid, state) {

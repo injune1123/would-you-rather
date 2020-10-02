@@ -1,19 +1,16 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { handleCreateQuestion } from '../actions/questions';
+import { Redirect } from 'react-router-dom';
 
 import './NewQuestion.css';
 
 
 
 class NewQuestion extends Component {
-  // const [option1, setOption1] = useState();
-  // const [option2, setOption2] = useState();
-  // const option1Ref = React.useRef(option1);
-  // const option2Ref = React.useRef(option2);
   constructor(props) {
     super(props);
-    this.state = { option1: null,option2: null };
+    this.state = { option1: null,option2: null, toHome: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeOption1 = this.handleChangeOption1.bind(this);
     this.handleChangeOption2 = this.handleChangeOption2.bind(this);
@@ -26,8 +23,9 @@ class NewQuestion extends Component {
         optionOneText: this.state.option1,
         optionTwoText: this.state.option2
     })
-
     )
+    this.setState({toHome: true})
+
   }
 
 
@@ -40,7 +38,9 @@ class NewQuestion extends Component {
   }
 
   render() {
-
+    if(this.state.toHome) {
+      return <Redirect to="/"/>
+    }
     return (
       <div className = 'new-question'>
         <h1>Create A New Question</h1>

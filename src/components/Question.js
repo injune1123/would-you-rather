@@ -7,6 +7,7 @@ import {RiThumbUpFill} from "react-icons/ri";
 import './Question.css';
 
 class Question extends Component {
+
   handleOptionChange(event) {
     this.props.dispatch(handleAnswerQuestion({
       authedUser: this.props.authedUser,
