@@ -5,25 +5,49 @@ import NewQuestion from './NewQuestion'
 import QuestionOverview from './QuestionOverview'
 
 class Dashboard extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {questions: 'unanswered'};
+    this.renderQuestions = this.renderQuestions.bind(this);
+
+  }
+
+  onChangeQuestionsType (e) {
+    this.setState({questions: e.target.value})
+  }
+
+  renderQuestions(answered) {
+    debugger;
+    const questionIds = answered? this.props.answeredQuestionIds : this.props.unAnsweredQuestionIds;
+    return questionIds.map((id)=>(
+      <QuestionOverview key={id} id={id}/>
+    ))
+  }
+
   render() {
     return (
       <div>
         <SignIn/>
         <NewQuestion/>
-      <h3> Answered Questions</h3>
-      <ul>
-        {this.props.answeredQuestionIds.map((id)=>(
-          <>
-          <QuestionOverview key={id} id={id}/>
-          </>
-        ))}
-      </ul>
-      <h3> unAnswered Questions</h3>
-      <ul>
-        {this.props.unAnsweredQuestionIds.map((id)=>(
-            <QuestionOverview key={id} id={id}/>
-        ))}
-      </ul>
+
+      <input id='unanswered-question-nav'
+        checked={this.state.questions==="unanswered"}
+        type="radio"
+        value='unanswered'
+        onChange={(e) => (this.onChangeQuestionsType(e))}/>
+      <label htmlFor='unanswered-question-nav'> Questions To Be Answered</label>
+
+      <input id='answered-question-nav'
+        checked={this.state.questions==="answered"}
+        type="radio"
+        value='answered'
+        onChange={(e) => (this.onChangeQuestionsType(e))}/>
+      <label htmlFor='answered-question-nav'> Answered questions</label>
+
+
+      {this.renderQuestions(this.state.questions==="answered")}
+
       </div>)
   }
 }
