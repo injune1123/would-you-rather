@@ -16,10 +16,29 @@ class Question extends Component {
     }))
   }
   render() {
-    const {question} = this.props
-    if(!question) {
-      return <p>This question does not exist</p>
+
+    const {authedUser, question, loading} = this.props
+    if(loading) {
+      return <p>Loading...</p>
     }
+    if(!question) {
+      return <p>404 This question does not exist</p>
+    }
+
+    const votesForOption1 = this.props.question.optionOne.votes
+    const votesForOption2 = this.props.question.optionTwo.votes
+    const numOfVotesForOption1 = votesForOption1.length
+    const numOfVotesForOption2 = votesForOption2.length
+    const perctOfOption1Votes = Number.parseFloat(100 * numOfVotesForOption1/(numOfVotesForOption1+numOfVotesForOption2)).toFixed(2);
+    const perctOfOption2Votes = Number.parseFloat(100 * numOfVotesForOption2/(numOfVotesForOption1+numOfVotesForOption2)).toFixed(2);
+    const selectedOptionOne = votesForOption1.indexOf(authedUser) > -1
+    const selectedOptionTwo = votesForOption2.indexOf(authedUser) > -1
+
+    const answered = selectedOptionOne || selectedOptionTwo
+
+    debugger;
+    // const
+    console.log("!!!!this.props", this.props)
 
     const {avatar, id, name, optionOne, optionTwo, timestamp} = question
 
@@ -30,8 +49,10 @@ class Question extends Component {
           alt={`Avatar of ${name}`}
           className='avatar'
         /> */}
+        <h1>A Question</h1>
+        {answered ? <p>Answered</p> : <p>To Be Answered</p>}
+
         <h3>
-        ({(this.props.selectedOptionOne || this.props.selectedOptionTwo) ? 'Answered' : 'UnAnswered'})
 
           {` Would you rather`}
           </h3>
@@ -43,10 +64,11 @@ class Question extends Component {
           id={`${id}-optionOne`}
           name={`${optionOne.text} or ${optionTwo.text}`}
           value='optionOne'
-          checked={this.props.selectedOptionOne}
+          checked={selectedOptionOne}
           onChange={(e) => (this.handleOptionChange(e))}
         />
-        <label className={`option ${this.props.selectedOptionOne? 'selected' : 'unSelected'}`} htmlFor={`${id}-optionOne`}>{optionOne.text}</label>
+        <label className={`option ${selectedOptionOne? 'selected' : 'unSelected'}`} htmlFor={`${id}-optionOne`}>{optionOne.text}</label>
+        <p>{answered && `In total, ${numOfVotesForOption1} people (${perctOfOption1Votes}%) voted for this option. `}</p>
         <br/>
 
         <input
@@ -56,11 +78,12 @@ class Question extends Component {
           id={`${id}-optionTwo`}
           name={`${optionOne.text} or ${optionTwo.text}`}
           value={'optionTwo'}
-          checked={this.props.selectedOptionTwo}
+          checked={selectedOptionTwo}
           onChange={(e) => (this.handleOptionChange(e))}
         />
 
-        <label className={`option ${this.props.selectedOptionTwo? 'selected' : 'unSelected'}`} htmlFor={`${id}-optionTwo`}>{optionTwo.text}</label>
+        <label className={`option ${selectedOptionTwo? 'selected' : 'unSelected'}`} htmlFor={`${id}-optionTwo`}>{optionTwo.text}</label>
+        <p>{answered && `In total, ${numOfVotesForOption2} people  (${perctOfOption2Votes}%) voted for this option.`}</p>
         <br/>
 
         <div className='question-info'>
@@ -75,12 +98,10 @@ class Question extends Component {
 function mapStateToProps({authedUser, users, questions}, {id}) {
 
   const question = questions[id]
-
   return {
+    loading: !Object.keys(users).length || !Object.keys(questions).length,
     authedUser,
-    question: question? formatQuestion(question, users[question.author], authedUser) : null,
-    selectedOptionOne: question.optionOne.votes.indexOf(authedUser) > -1,
-    selectedOptionTwo: question.optionTwo.votes.indexOf(authedUser) > -1,
+    question: question? formatQuestion(question, users[question.author], authedUser) : null
   }
 }
 
