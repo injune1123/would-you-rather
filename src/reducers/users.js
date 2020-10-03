@@ -1,19 +1,12 @@
 import {RECEIVE_USERS} from '../actions/users'
-import {ANSWER_QUESTION} from '../actions/questions'
+import {ANSWER_QUESTION, CREATE_QUESTION} from '../actions/questions'
 
 export default function users (state = {}, action) {
   switch(action.type) {
     case ANSWER_QUESTION:
-          //  in users object
+    //  in users object
     //  the authed user property
     // will have the answered question stored in
-    // its answers object
-    // ...,
-    // authedUser: {
-    // ...
-    //   answers: {
-    //  "question": 'optionOne',
-    // },
     const {qid, answer, authedUser}= action
     return {
       ...state,
@@ -25,11 +18,21 @@ export default function users (state = {}, action) {
         }
       }
     }
-    case RECEIVE_USERS:
+    case CREATE_QUESTION:
+      const {newQuestion} = action
       return {
         ...state,
-        ...action.users
+        [state[newQuestion.author].id]:{
+          ...state[newQuestion.author],
+          questions: [...state[newQuestion.author].questions, newQuestion.id]
+        }
       }
+
+    case RECEIVE_USERS:
+    return {
+      ...state,
+      ...action.users
+    }
     default:
       return state
   }
