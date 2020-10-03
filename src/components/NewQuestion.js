@@ -70,7 +70,7 @@ class NewQuestion extends Component {
 
         </h2>
 
-        <button onClick={this.handleSubmit}> Submit My Question</button>
+        <button disabled={!this.state.option1 ||!this.state.option2 }onClick={this.handleSubmit}> Submit My Question</button>
       </div>
 
     )
