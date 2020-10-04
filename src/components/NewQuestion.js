@@ -10,7 +10,7 @@ import './NewQuestion.css';
 class NewQuestion extends Component {
   constructor(props) {
     super(props);
-    this.state = { option1: null,option2: null, toHome: false };
+    this.state = { option1: '',option2: '', toHome: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeOption1 = this.handleChangeOption1.bind(this);
     this.handleChangeOption2 = this.handleChangeOption2.bind(this);

@@ -14,7 +14,7 @@ class Leaderboard extends Component {
       <>
         <h1>Leader Board</h1>
     <ol>{this.props.users.map(id=>
-    <User id={id}/>)}</ol>
+    <User key={id} id={id}/>)}</ol>
       </>)
   }
 }
